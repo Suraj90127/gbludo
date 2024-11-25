@@ -1,0 +1,340 @@
+import express from "express";
+import { authorizeRoles, isAuthenticatedUser } from "../middelware/auth.js";
+import {
+  adminApproveKyc,
+  adminGetKyc,
+  adminGetKycDetails,
+  adminMarquee,
+  adminPendingKyc,
+  adminRejectedKyc,
+  adminSettingGet,
+  adminSignUpBonus,
+  adminSuccessKyc,
+  adminTelegram,
+  approveRecharge,
+  battleControll,
+  battleDispute,
+  battleRefund,
+  battleResult,
+  battleView,
+  betHistory,
+  blockedUser,
+  cancelBet,
+  deletRecharge,
+  gameAdmin,
+  gameAdminDelete,
+  gameAdminUpdate,
+  gameAdminView,
+  getAllUser,
+  getUserAdmin,
+  getUserBank,
+  newBattle,
+  newBattleDelete,
+  payRecieved,
+  penalty,
+  recharge,
+  rechargeAll,
+  runningBattle,
+  setAdminCommission,
+  setAdminUPI,
+  singleUser,
+  transactionHistory,
+  updateUserStatus,
+  withdrawalAll,
+  withdrawalApprove,
+  withdrawalReject,
+  withdraws,
+  adminDeletKyc,
+  adminAllKyc,
+} from "../controllers/adminController.js";
+const router = express.Router();
+import cookieParser from "cookie-parser";
+import { upload } from "../utils/multer.js";
+
+const app = express();
+
+app.use(cookieParser());
+
+router.get(
+  "/admin-auth",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  (req, res) => {
+    res.status(200).send({ ok: true });
+  }
+);
+// admin
+router.get(
+  "/admin/all-users",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getAllUser
+);
+router.get(
+  "/admin/user/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getUserAdmin
+);
+router.get(
+  "/admin/user-bank/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  getUserBank
+);
+router.get(
+  "/admin/user-transaction/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  singleUser
+);
+router.get(
+  "/admin/user-transaction-history/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  transactionHistory
+);
+router.get(
+  "/admin/user-bet-history/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  betHistory
+);
+router.get(
+  "/admin/block-users",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  blockedUser
+);
+router.get(
+  "/admin/get-kyc-all",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminAllKyc
+);
+router.delete(
+  "/admin/delete-kyc/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminDeletKyc
+);
+
+router.get(
+  "/admin/get-kyc/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminGetKyc
+);
+router.get(
+  "/admin/get-kyc-details/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminGetKycDetails
+);
+router.get(
+  "/admin/pending-kyc",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminPendingKyc
+);
+router.get(
+  "/admin/success-kyc",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminSuccessKyc
+);
+router.get(
+  "/admin/approve-kyc/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminApproveKyc
+);
+router.get(
+  "/admin/rejected-kyc/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminRejectedKyc
+);
+
+router.put(
+  "/admin/user-status/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  updateUserStatus
+);
+router.get(
+  "/admin/new-battle",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  newBattle
+);
+router.delete(
+  "/admin/new-battle-delete/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  newBattleDelete
+);
+router.get(
+  "/admin/running-battle",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  runningBattle
+);
+router.get(
+  "/admin/battle-result",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  battleResult
+);
+router.get(
+  "/admin/battle-view/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  battleView
+);
+router.put(
+  "/admin/battle-update/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  battleControll
+);
+// battle cancle
+router.put(
+  "/admin/battle-dispute",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  battleDispute
+);
+router.get(
+  "/admin/battle-cancel",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  cancelBet
+); //success battle
+router.get(
+  "/admin/battle-refund/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  battleRefund
+); //success battle
+router.get(
+  "/admin/battle-recieve",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  payRecieved
+); //success battle
+router.get(
+  "/admin/recharge",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  recharge
+);
+router.get(
+  "/admin/recharge-all",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  rechargeAll
+);
+router.get(
+  "/admin/recharge-approve/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  approveRecharge
+);
+router.get(
+  "/admin/recharge-cancle/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  deletRecharge
+);
+router.get(
+  "/admin/withdrawal",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  withdraws
+);
+router.get(
+  "/admin/withdrawal-approve/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  withdrawalApprove
+);
+router.get(
+  "/admin/withdrawal-cancle/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  withdrawalReject
+);
+router.get(
+  "/admin/withdrawal-all",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  withdrawalAll
+);
+
+router.get("/admin/admin-setting", isAuthenticatedUser, adminSettingGet);
+router.post(
+  "/admin/set-upi",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  setAdminUPI
+);
+router.post(
+  "/admin/set-commission",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  setAdminCommission
+);
+router.post(
+  "/admin/set-telegram",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminTelegram
+);
+router.post(
+  "/admin/set-bonus",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminSignUpBonus
+);
+router.post(
+  "/admin/set-marquee",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminMarquee
+);
+router.post(
+  "/admin/set-game",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  upload.single("gimage"),
+  gameAdmin
+);
+router.put(
+  "/admin/update-game/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  upload.single("gimage"),
+  gameAdminUpdate
+);
+router.get(
+  "/admin/veiw-game/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  gameAdminView
+);
+router.delete(
+  "/admin/delete-game/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  gameAdminDelete
+);
+
+router.put(
+  "/admin/penalty/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  penalty
+);
+
+export default router;

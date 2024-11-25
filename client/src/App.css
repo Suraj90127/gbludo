@@ -1,0 +1,56 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+p,h2,h3,h4,span,a{
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.left-side {
+  flex: 0 0 500px; /* Flex-basis is 500px, no shrinking, no growing */
+  height: 100vh;
+}
+
+.right-side {
+  flex: 1; /* Allow the right side to grow and take up remaining space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  border-left: 5px solid rgb(175, 175, 175);
+}
+
+@media (max-width: 600px) {
+  .right-side {
+    display: none;
+  }
+
+  .left-side {
+    flex: 1; /* Allow the left side to grow and take up full width */
+    border: none;
+  }
+}
+
+
+
+/* Custom styles for SweetAlert2 buttons */
+.swal2-confirm-button {
+  background-color: green !important;
+  color: white !important;
+}
+
+.swal2-cancel-button {
+  background-color: red !important;
+  color: white !important;
+}

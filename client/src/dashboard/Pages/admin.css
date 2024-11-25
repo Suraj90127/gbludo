@@ -1,0 +1,10 @@
+/* Custom styles for SweetAlert2 buttons */
+.swal2-confirm-button {
+    background-color: green !important;
+    color: white !important;
+  }
+  
+  .swal2-cancel-button {
+    background-color: red !important;
+    color: white !important;
+  }

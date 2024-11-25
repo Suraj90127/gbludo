@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7110ae6d.css",
+    "main.js": "/static/js/main.73ae6dcb.js",
+    "static/js/453.dc66c0c4.chunk.js": "/static/js/453.dc66c0c4.chunk.js",
+    "static/media/logo.png": "/static/media/logo.0334e7f440fae883468c.png",
+    "static/media/battle.png": "/static/media/battle.0edf144196ea32e76de6.png",
+    "static/media/whatsapp.webp": "/static/media/whatsapp.ad319cf6228bf0308c5a.webp",
+    "static/media/ludo.jpg": "/static/media/ludo.50d654e70c671d1aa5fc.jpg",
+    "static/media/Avatar2.png": "/static/media/Avatar2.b717e41ec30dd7d238fb.png",
+    "static/media/Ludoimage.jpg": "/static/media/Ludoimage.1f3c0382ef052c10fc27.jpg",
+    "static/media/Bank-PNG-File.png": "/static/media/Bank-PNG-File.ea3996094d22b58fcbb0.png",
+    "static/media/telegram.webp": "/static/media/telegram.83afb38d774195e7cc28.webp",
+    "static/media/17187106486.jpg": "/static/media/17187106486.f72804b89dbf1c73e46c.jpg",
+    "static/media/17187111885.jpg": "/static/media/17187111885.f72804b89dbf1c73e46c.jpg",
+    "static/media/17187117675.jpg": "/static/media/17187117675.f72804b89dbf1c73e46c.jpg",
+    "static/media/android.jpg": "/static/media/android.f5b4ad2fd5424ef94d5b.jpg",
+    "static/media/PaytmPG.jpeg": "/static/media/PaytmPG.46324fa9854c654a8340.jpeg",
+    "static/media/notransactionhistory (1).png": "/static/media/notransactionhistory (1).f8b0e6ed71a587fa15cd.png",
+    "static/media/banner_illsutration.png": "/static/media/banner_illsutration.5638b2aab3eaa53235a0.png",
+    "static/media/UPI gateway.jpg": "/static/media/UPI gateway.a899a0b399fb7c451eb3.jpg",
+    "static/media/ios.png": "/static/media/ios.33faf295d95bc7702b7a.png",
+    "static/media/versus.png": "/static/media/versus.e3e7ea326a87f11c163d.png",
+    "static/media/refer.svg": "/static/media/refer.8f69c4a1c7d44c2119e4b020b5547dfc.svg",
+    "static/media/nogamehistory.png": "/static/media/nogamehistory.ea742a54975db0571198.png",
+    "static/media/support.svg": "/static/media/support.4e18848842fe0d03eae6f630d30b0ba2.svg",
+    "static/media/upi_logo_icon_169316.webp": "/static/media/upi_logo_icon_169316.6307d369004cff246642.webp",
+    "index.html": "/index.html",
+    "main.7110ae6d.css.map": "/static/css/main.7110ae6d.css.map",
+    "main.73ae6dcb.js.map": "/static/js/main.73ae6dcb.js.map",
+    "453.dc66c0c4.chunk.js.map": "/static/js/453.dc66c0c4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7110ae6d.css",
+    "static/js/main.73ae6dcb.js"
+  ]
+}
