@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7110ae6d.css",
-    "main.js": "/static/js/main.73ae6dcb.js",
+    "main.js": "/static/js/main.fe41dfec.js",
     "static/js/453.dc66c0c4.chunk.js": "/static/js/453.dc66c0c4.chunk.js",
     "static/media/logo.png": "/static/media/logo.0334e7f440fae883468c.png",
     "static/media/battle.png": "/static/media/battle.0edf144196ea32e76de6.png",
@@ -27,11 +27,11 @@
     "static/media/upi_logo_icon_169316.webp": "/static/media/upi_logo_icon_169316.6307d369004cff246642.webp",
     "index.html": "/index.html",
     "main.7110ae6d.css.map": "/static/css/main.7110ae6d.css.map",
-    "main.73ae6dcb.js.map": "/static/js/main.73ae6dcb.js.map",
+    "main.fe41dfec.js.map": "/static/js/main.fe41dfec.js.map",
     "453.dc66c0c4.chunk.js.map": "/static/js/453.dc66c0c4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7110ae6d.css",
-    "static/js/main.73ae6dcb.js"
+    "static/js/main.fe41dfec.js"
   ]
 }

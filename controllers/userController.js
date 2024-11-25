@@ -39,112 +39,19 @@ function generateUserId() {
   return referralCode;
 }
 
-// export const loginUser = async (req, res, next) => {
-//   const randomString = generateRandomString(8);
-//   const code = generateReferralCode();
-//   const { phone, password, invite } = req.body;
-
-//   console.log("object,", phone, password);
-//   try {
-//     if (!phone || !password) {
-//       return next(new ErrorHandler("please enter phone and password", 404));
-//     }
-//     const user = await userModel.findOne({ phone });
-//     const data = await adminModel.findOne({});
-
-//     let referralCommission = 0;
-//     let signUpBonus = 0;
-//     if (data != null) {
-//       referralCommission = data?.referralCommission;
-//       signUpBonus = data?.signUpBonus;
-//     }
-
-//     let invites = "0";
-//     if (invite == null) {
-//       invites = "ADMIN1";
-//     } else {
-//       invites = invite;
-//     }
-//     const invitesData = await userModel.findOne({ code: invites });
-
-//     if (user.otp != otp) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Invalid otp",
-//       });
-//     }
-
-//     if (user.status == "0") {
-//       if (invitesData === null) {
-//         return res.status(400).json({
-//           success: false,
-//           message: "invite code is not valid",
-//           invitesData,
-//         });
-//       }
-//       const newUser = await userModel.findOneAndUpdate(
-//         { phone },
-//         {
-//           otp,
-//           phone,
-//           money: signUpBonus,
-//           invite: invites,
-//           name: randomString,
-//           code,
-//           status: "active",
-//         }
-//       );
-
-//       await newUser.getJWTToken();
-
-//       return res.status(200).json({
-//         success: true,
-//         message: "User registered successfully",
-//         user: newUser,
-//       });
-//     }
-
-//     if (user.status == "de-active") {
-//       return res.status(400).send({
-//         success: false,
-//         message: "Your account is blocked",
-//       });
-//     }
-
-//     if (user) {
-//       await user.getJWTToken();
-//     }
-
-//     res.status(201).send({
-//       success: true,
-//       message: "login successfully",
-//       user,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({
-//       success: false,
-//       message: "Error in Login",
-//       error,
-//     });
-//   }
-// };
-
 export const loginUser = async (req, res, next) => {
   const randomString = generateRandomString(8);
   const code = generateReferralCode();
   const { phone, password, invite } = req.body;
 
+  console.log("object,", phone, password);
   try {
     if (!phone || !password) {
-      return next(new ErrorHandler("Please enter phone and password", 404));
+      return next(new ErrorHandler("please enter phone and password", 404));
     }
-
-    // Find user by phone
-    let user = await userModel.findOne({ phone }).select("+password");
+    const user = await userModel.findOne({ phone });
     const data = await adminModel.findOne({});
 
-    // Initialize referralCommission and signUpBonus
     let referralCommission = 0;
     let signUpBonus = 0;
     if (data != null) {
@@ -152,71 +59,66 @@ export const loginUser = async (req, res, next) => {
       signUpBonus = data?.signUpBonus;
     }
 
-    // Check if invite is provided, otherwise default to "ADMIN1"
-    let invites = invite || "ADMIN1";
+    let invites = "0";
+    if (invite == null) {
+      invites = "ADMIN1";
+    } else {
+      invites = invite;
+    }
     const invitesData = await userModel.findOne({ code: invites });
 
-    // console.log("invitesData", invitesData);
+    if (user.otp != otp) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid otp",
+      });
+    }
 
-    // If user does not exist, create a new user
-    if (!user) {
+    if (user.status == "0") {
       if (invitesData === null) {
         return res.status(400).json({
           success: false,
-          message: "Invite code is not valid",
+          message: "invite code is not valid",
+          invitesData,
         });
       }
+      const newUser = await userModel.findOneAndUpdate(
+        { phone },
+        {
+          otp,
+          phone,
+          money: signUpBonus,
+          invite: invites,
+          name: randomString,
+          code,
+          status: "active",
+        }
+      );
 
-      // Create a new user with the provided phone and password
-      user = new userModel({
-        phone,
-        password,
-        money: signUpBonus,
-        invite: invites,
-        name: randomString,
-        code,
-        status: "active",
-      });
-
-      // Save the new user
-      await user.save();
-
-      // Generate JWT token for the new user
-      const token = await user.getJWTToken();
+      await newUser.getJWTToken();
 
       return res.status(200).json({
         success: true,
         message: "User registered successfully",
-        user,
-        token,
+        user: newUser,
       });
     }
 
-    // If user exists, verify the password
-    const isPasswordMatch = await user.comparePassword(password);
-    if (!isPasswordMatch) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid password",
-      });
-    }
-
-    // Check if the user is blocked
-    if (user.status === "de-active") {
+    if (user.status == "de-active") {
       return res.status(400).send({
         success: false,
         message: "Your account is blocked",
       });
     }
 
-    // Generate JWT token for the existing user
-    const token = await user.getJWTToken();
+    if (user) {
+      await user.getJWTToken();
+    }
 
-    res.status(200).send({
+    res.status(201).send({
       success: true,
-      message: "Login successfully",
+      message: "login successfully",
       user,
-      token,
     });
   } catch (error) {
     console.log(error);
@@ -227,6 +129,104 @@ export const loginUser = async (req, res, next) => {
     });
   }
 };
+
+// export const loginUser = async (req, res, next) => {
+//   const randomString = generateRandomString(8);
+//   const code = generateReferralCode();
+//   const { phone, password, invite } = req.body;
+
+//   try {
+//     if (!phone || !password) {
+//       return next(new ErrorHandler("Please enter phone and password", 404));
+//     }
+
+//     // Find user by phone
+//     let user = await userModel.findOne({ phone }).select("+password");
+//     const data = await adminModel.findOne({});
+
+//     // Initialize referralCommission and signUpBonus
+//     let referralCommission = 0;
+//     let signUpBonus = 0;
+//     if (data != null) {
+//       referralCommission = data?.referralCommission;
+//       signUpBonus = data?.signUpBonus;
+//     }
+
+//     // Check if invite is provided, otherwise default to "ADMIN1"
+//     let invites = invite || "ADMIN1";
+//     const invitesData = await userModel.findOne({ code: invites });
+
+//     // console.log("invitesData", invitesData);
+
+//     // If user does not exist, create a new user
+//     if (!user) {
+//       if (invitesData === null) {
+//         return res.status(400).json({
+//           success: false,
+//           message: "Invite code is not valid",
+//         });
+//       }
+
+//       // Create a new user with the provided phone and password
+//       user = new userModel({
+//         phone,
+//         password,
+//         money: signUpBonus,
+//         invite: invites,
+//         name: randomString,
+//         code,
+//         status: "active",
+//       });
+
+//       // Save the new user
+//       await user.save();
+
+//       // Generate JWT token for the new user
+//       const token = await user.getJWTToken();
+
+//       return res.status(200).json({
+//         success: true,
+//         message: "User registered successfully",
+//         user,
+//         token,
+//       });
+//     }
+
+//     // If user exists, verify the password
+//     const isPasswordMatch = await user.comparePassword(password);
+//     if (!isPasswordMatch) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Invalid password",
+//       });
+//     }
+
+//     // Check if the user is blocked
+//     if (user.status === "de-active") {
+//       return res.status(400).send({
+//         success: false,
+//         message: "Your account is blocked",
+//       });
+//     }
+
+//     // Generate JWT token for the existing user
+//     const token = await user.getJWTToken();
+
+//     res.status(200).send({
+//       success: true,
+//       message: "Login successfully",
+//       user,
+//       token,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       success: false,
+//       message: "Error in Login",
+//       error,
+//     });
+//   }
+// };
 
 export const sendOtp = async (req, res) => {
   // Generate a 6-digit random OTP
